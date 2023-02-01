@@ -28,7 +28,7 @@ jobs:
       
     - name: Set variables
       run: |
-        echo "::set-output name=date::$(date +%F)"
+        echo "name=date::$(date +%F)" >> $GITHUB_OUTPUT
       id: var
       
     - name: Install TWRP generator 
@@ -44,11 +44,9 @@ jobs:
     - name: Start build
       run: |
         python3 -m twrpdtgen -o dt/ *.img
-
     - name: ZIP device tree
       run: |
         zip -r DeviceTree.zip ./dt
-
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
